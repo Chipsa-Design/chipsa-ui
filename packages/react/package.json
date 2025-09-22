@@ -1,0 +1,29 @@
+{
+  "name": "@chipsa-ui/react",
+  "version": "0.0.1",
+  "description": "A React-specific wrapper of UI library designed for building modern, scalable web app.",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'nononono'"
+  },
+  "dependencies": {
+    "@chipsa-ui/core": "*"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "keywords": [
+    "components",
+    "design",
+    "frontend",
+    "library",
+    "react",
+    "ui",
+    "ui-kit"
+  ],
+  "author": "chipsadesign",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
