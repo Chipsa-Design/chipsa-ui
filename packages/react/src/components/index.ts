@@ -1,2 +1,2 @@
-export { ImgSequence } from "./img-sequence";
-export { useImgSequence } from "./hooks";
+export * from "./img-sequence";
+export * from "./hooks";

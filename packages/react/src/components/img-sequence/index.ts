@@ -1,1 +1,1 @@
-export { ImgSequence } from "./ImgSequence";
+export { ImgSequence, type ImgSequenceHandle } from "./ImgSequence";
