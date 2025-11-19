@@ -1,32 +1,32 @@
 {
     "$schema": "https://ui.shadcn.com/schema/registry.json",
-    "name": "chipsa",
-    "homepage": "https://ui.chipsa.ru",
+    "name": "chipsa-ui",
+    "homepage": "https://chipsadesign.github.io",
     "items": [
         {
-            "name": "button",
+            "name": "img-sequence",
             "type": "registry:component",
-            "title": "Button",
-            "description": "A button component.",
+            "title": "ImgSequence",
+            "description": "A img sequence component",
             "files": [
                 {
-                    "path": "registry/chipsa/ui/Button/Button.astro",
+                    "path": "registry/chipsa/core/src/components/img-sequence/",
                     "type": "registry:component"
                 }
             ]
         },
         {
-            "name": "popup",
+            "name": "img-sequence:astro",
             "type": "registry:component",
-            "title": "Popup",
-            "description": "A popup component.",
+            "title": "ImgSequence (Astro)",
+            "description": "A img sequence component for Astro.",
             "files": [
                 {
-                    "path": "registry/chipsa/ui/Popup/Popup.astro",
+                    "path": "registry/chipsa/astro/img-sequence/ImgSequence.astro",
                     "type": "registry:component"
                 }
             ],
-            "dependencies": ["delegate"]
+            "dependencies": ["@chipsa-ui/core"]
         }
     ]
 }
