@@ -4,6 +4,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"],
+            "@core/*": ["@/../../../packages/core/src/*"],
+            "@react/*": ["@/../../../packages/react/src/*"],
             "@astro/*": ["@/../../../packages/astro/src/*"]
         }
     },
