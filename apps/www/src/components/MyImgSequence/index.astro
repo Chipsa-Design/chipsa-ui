@@ -1,0 +1,57 @@
+---
+---
+
+<canvas
+  id="img-sequence-canvas"
+  class="w-full h-full border-2 border-border rounded-lg shadow-lg bg-card"
+></canvas>
+
+<script>
+import { ImgSequence } from "@chipsa-ui/core";
+
+
+    const canvas = document.getElementById(
+  "img-sequence-canvas"
+) as HTMLCanvasElement;
+if (!canvas) {
+  console.error('Canvas with id "img-sequence-canvas" not found');
+} else {
+  const imgSequence = new ImgSequence({
+    canvas,
+    debug: true,
+    playback: {
+      minFrameIdx: 100,
+      maxFrameIdx: 300,
+      fps: 60,
+      loop: true,
+      reverse: true,
+    },
+    render: {
+      objectFit: "contain",
+      objectPosition: ["center", "center"],
+      shouldClear: true,
+    },
+    loader: {
+      strategy: "lazy",
+      framesLoadingRange: 30,
+      framesCount: 354,
+      getFrameUrl: (idx: number) => {
+        return `/img/sequence/image-${String(idx + 1).padStart(3, "0")}.webp`;
+      },
+      onReady() {
+        imgSequence.render({ fallbackToClosestFrame: true });
+        imgSequence.play();
+      },
+      onFullyLoaded() {
+        console.log("All frames fully loaded!");
+      },
+    },
+  });
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", () => {
+    imgSequence.destroy();
+  });
+}
+</script>
+
