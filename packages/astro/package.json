@@ -21,7 +21,7 @@
         "build": "vite build"
     },
     "dependencies": {
-        "@chipsa-ui/core": "*"
+        "@chipsa-ui/core": "workspace:*"
     },
     "peerDependencies": {
         "astro": "^4.0.0"

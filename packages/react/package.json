@@ -21,7 +21,10 @@
         "build": "vite build"
     },
     "dependencies": {
-        "@chipsa-ui/core": "*"
+        "@chipsa-ui/core": "workspace:*"
+    },
+    "devDependencies": {
+        "@types/react": "^19.0.0"
     },
     "peerDependencies": {
         "react": "^19.0.0"

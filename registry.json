@@ -1,0 +1,32 @@
+{
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "chipsa",
+    "homepage": "https://ui.chipsa.ru",
+    "items": [
+        {
+            "name": "button",
+            "type": "registry:component",
+            "title": "Button",
+            "description": "A button component.",
+            "files": [
+                {
+                    "path": "registry/chipsa/ui/Button/Button.astro",
+                    "type": "registry:component"
+                }
+            ]
+        },
+        {
+            "name": "popup",
+            "type": "registry:component",
+            "title": "Popup",
+            "description": "A popup component.",
+            "files": [
+                {
+                    "path": "registry/chipsa/ui/Popup/Popup.astro",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": ["delegate"]
+        }
+    ]
+}

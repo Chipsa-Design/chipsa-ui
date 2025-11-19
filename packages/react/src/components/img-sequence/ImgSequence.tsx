@@ -36,5 +36,5 @@ export const ImgSequence = ({ ref, options, ...props }: ImgSequenceProps) => {
         };
     }, [options]);
 
-    return <canvas ref={canvasRef} {...props} />;
+    return <canvas {...props} ref={canvasRef}  />;
 };

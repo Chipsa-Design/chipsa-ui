@@ -3,14 +3,11 @@
     "version": "0.0.1",
     "description": "A UI library for modern web apps.",
     "private": true,
-    "workspaces": [
-        "packages/*",
-        "apps/*"
-    ],
     "scripts": {
-        "build:core": "npm run build -w @chipsa-ui/core",
-        "build:react": "npm run build -w @chipsa-ui/react",
-        "build:astro": "npm run build -w @chipsa-ui/astro",
+        "build:core": "pnpm --filter @chipsa-ui/core build",
+        "build:react": "pnpm --filter @chipsa-ui/react build",
+        "build:astro": "pnpm --filter @chipsa-ui/astro build",
+        "build": "concurrently 'pnpm build:core' 'pnpm build:react'",
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --ignore-unknown --write \"**/*\""
     },
@@ -26,6 +23,7 @@
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^24.5.2",
+        "concurrently": "^9.2.1",
         "tsx": "^4.20.5",
         "vite": "^7.1.7",
         "vite-plugin-dts": "^4.5.4"
