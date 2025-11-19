@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export type Props = HTMLAttributes<'a'> & {};
+
+const { name, ...props } = Astro.props;
+---
+
+<a
+    href={`/playground/dashboard/components/${name}/`}
+    target="_blank"
+    rel="noreferrer"
+    title="Open in Astrobook"
+    class:list={['preview', props.class]}
+    {...props}
+>
+    <slot />
+</a>
+
+<style>
+    .preview {
+        aspect-ratio: 16 / 9;
+        min-height: 500px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        border: 1px solid #333;
+    }
+</style>

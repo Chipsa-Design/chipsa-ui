@@ -4,11 +4,12 @@ description: Компонент для воспроизведения после
 ---
 
 import ImgSequence from '@astro/components/img-sequence/ImgSequence.astro';
-import { LinkCard } from '@astrojs/starlight/components';
+import Preview from '@/astrobook/utils/Preview.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<a href="/playground/dashboard/components/img-sequence/" target="_blank" rel="noreferrer" title="Open in Astrobook">
-    <ImgSequence />
-</a>
+<Preview name="img-sequence">
+    <ImgSequence style='width: 100%; height: 100%;' />
+</Preview>
 
 ## Описание
 
@@ -22,75 +23,62 @@ ImgSequence — это мощный компонент для работы с п
 - 🔄 Поддержка циклов и обратного воспроизведения
 - 📊 Контроль FPS и диапазона кадров
 
-## Установка
-
-### Core (Vanilla JavaScript)
-
-```bash
-npm install @chipsa-ui/core
-```
-
-### React
-
-```bash
-npm install @chipsa-ui/react
-```
-
 ## Использование
 
-### Vanilla JavaScript
+<Tabs>
+  <TabItem label="Vanilla">
+    ```javascript
+    import { ImgSequence } from '@chipsa-ui/core';
 
-```javascript
-import { ImgSequence } from '@chipsa-ui/core';
+    const canvas = document.getElementById('my-canvas');
+    const imgSequence = new ImgSequence({
+        canvas,
+        playback: {
+            fps: 30,
+            loop: true,
+        },
+        loader: {
+            strategy: 'lazy',
+            framesCount: 100,
+            getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
+        },
+        render: {
+            objectFit: 'contain',
+            objectPosition: ['center', 'center'],
+        },
+    });
 
-const canvas = document.getElementById('my-canvas');
-const imgSequence = new ImgSequence({
-    canvas,
-    playback: {
-        fps: 30,
-        loop: true,
-    },
-    loader: {
-        strategy: 'lazy',
-        framesCount: 100,
-        getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
-    },
-    render: {
-        objectFit: 'contain',
-        objectPosition: ['center', 'center'],
-    },
-});
+    imgSequence.play();
+    ```
+  </TabItem>
+  <TabItem label="React">
+    ```tsx
+    import { ImgSequence } from '@chipsa-ui/react';
 
-imgSequence.play();
-```
-
-### React
-
-```tsx
-import { ImgSequence } from '@chipsa-ui/react';
-
-function MyComponent() {
-    return (
-        <ImgSequence
-            options={{
-                playback: {
-                    fps: 30,
-                    loop: true,
-                },
-                loader: {
-                    strategy: 'lazy',
-                    framesCount: 100,
-                    getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
-                },
-                render: {
-                    objectFit: 'contain',
-                    objectPosition: ['center', 'center'],
-                },
-            }}
-        />
-    );
-}
-```
+    function MyComponent() {
+        return (
+            <ImgSequence
+                options={{
+                    playback: {
+                        fps: 30,
+                        loop: true,
+                    },
+                    loader: {
+                        strategy: 'lazy',
+                        framesCount: 100,
+                        getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
+                    },
+                    render: {
+                        objectFit: 'contain',
+                        objectPosition: ['center', 'center'],
+                    },
+                }}
+            />
+        );
+    }
+    ```
+  </TabItem>
+</Tabs>
 
 ## API
 
