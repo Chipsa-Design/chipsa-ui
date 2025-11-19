@@ -1,24 +1,24 @@
 {
-  "compilerOptions": {
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["dom", "ESNext"],
-    "strict": true,
-    "jsx": "react-jsx",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "baseUrl": "src",
-    "paths": {
-      "@/*": ["*"]
-    }
-  },
-  "include": ["src/**/*", "example"],
-  "exclude": ["node_modules", "dist/**/*"]
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["dom", "ESNext"],
+        "strict": true,
+        "jsx": "react-jsx",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "declaration": true,
+        "outDir": "./dist",
+        "baseUrl": "src",
+        "paths": {
+            "@/*": ["*"]
+        }
+    },
+    "include": ["src/**/*", "example"],
+    "exclude": ["node_modules", "dist/**/*"]
 }

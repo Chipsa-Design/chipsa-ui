@@ -1,1 +1,1 @@
-export { useImgSequence } from "./use-img-sequence";
+export { useImgSequence } from './use-img-sequence';

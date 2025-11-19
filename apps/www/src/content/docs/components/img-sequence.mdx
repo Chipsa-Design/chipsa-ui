@@ -38,24 +38,24 @@ npm install @chipsa-ui/react
 ### Vanilla JavaScript
 
 ```javascript
-import { ImgSequence } from "@chipsa-ui/core";
+import { ImgSequence } from '@chipsa-ui/core';
 
-const canvas = document.getElementById("my-canvas");
+const canvas = document.getElementById('my-canvas');
 const imgSequence = new ImgSequence({
-  canvas,
-  playback: {
-    fps: 30,
-    loop: true,
-  },
-  loader: {
-    strategy: "lazy",
-    framesCount: 100,
-    getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
-  },
-  render: {
-    objectFit: "contain",
-    objectPosition: ["center", "center"],
-  },
+    canvas,
+    playback: {
+        fps: 30,
+        loop: true,
+    },
+    loader: {
+        strategy: 'lazy',
+        framesCount: 100,
+        getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
+    },
+    render: {
+        objectFit: 'contain',
+        objectPosition: ['center', 'center'],
+    },
 });
 
 imgSequence.play();
@@ -64,28 +64,28 @@ imgSequence.play();
 ### React
 
 ```tsx
-import { ImgSequence } from "@chipsa-ui/react";
+import { ImgSequence } from '@chipsa-ui/react';
 
 function MyComponent() {
-  return (
-    <ImgSequence
-      options={{
-        playback: {
-          fps: 30,
-          loop: true,
-        },
-        loader: {
-          strategy: "lazy",
-          framesCount: 100,
-          getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
-        },
-        render: {
-          objectFit: "contain",
-          objectPosition: ["center", "center"],
-        },
-      }}
-    />
-  );
+    return (
+        <ImgSequence
+            options={{
+                playback: {
+                    fps: 30,
+                    loop: true,
+                },
+                loader: {
+                    strategy: 'lazy',
+                    framesCount: 100,
+                    getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
+                },
+                render: {
+                    objectFit: 'contain',
+                    objectPosition: ['center', 'center'],
+                },
+            }}
+        />
+    );
 }
 ```
 

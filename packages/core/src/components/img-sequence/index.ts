@@ -1,2 +1,2 @@
-export { ImgSequence } from "./ImgSequence";
-export type { ImgSequenceProps } from "./types";
+export { ImgSequence } from './ImgSequence';
+export type { ImgSequenceProps } from './types';

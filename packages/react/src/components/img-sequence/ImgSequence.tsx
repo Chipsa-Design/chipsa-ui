@@ -1,44 +1,40 @@
-import {
-  ImgSequence as ImgSequenceImpl,
-  ImgSequenceProps as ImgSequenceImplProps,
-} from "@chipsa-ui/core";
-
-import { useEffect, useImperativeHandle, useRef, useState } from "react";
+import { ImgSequence as ImgSequenceImpl, ImgSequenceProps as ImgSequenceImplProps } from '@chipsa-ui/core';
+import { useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 export type ImgSequenceProps = React.HTMLAttributes<HTMLElement> & {
-  ref?: React.Ref<ImgSequenceHandle>;
-  options: Omit<ImgSequenceImplProps, "canvas">;
+    ref?: React.Ref<ImgSequenceHandle>;
+    options: Omit<ImgSequenceImplProps, 'canvas'>;
 };
 
 export interface ImgSequenceHandle {
-  instance: ImgSequenceImpl | null;
-  canvas: React.RefObject<HTMLCanvasElement | null>;
+    instance: ImgSequenceImpl | null;
+    canvas: React.RefObject<HTMLCanvasElement | null>;
 }
 
 export const ImgSequence = ({ ref, options, ...props }: ImgSequenceProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [instance, setInstance] = useState<ImgSequenceImpl | null>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [instance, setInstance] = useState<ImgSequenceImpl | null>(null);
 
-  useImperativeHandle(ref, () => ({
-    instance,
-    canvas: canvasRef,
-  }));
+    useImperativeHandle(ref, () => ({
+        instance,
+        canvas: canvasRef,
+    }));
 
-  useEffect(() => {
-    if (!canvasRef.current) return;
+    useEffect(() => {
+        if (!canvasRef.current) return;
 
-    const imgSequence = new ImgSequenceImpl({
-      ...options,
-      canvas: canvasRef.current,
-    });
+        const imgSequence = new ImgSequenceImpl({
+            ...options,
+            canvas: canvasRef.current,
+        });
 
-    setInstance(imgSequence);
+        setInstance(imgSequence);
 
-    return () => {
-      imgSequence.destroy();
-      setInstance(null);
-    };
-  }, [options]);
+        return () => {
+            imgSequence.destroy();
+            setInstance(null);
+        };
+    }, [options]);
 
-  return <canvas ref={canvasRef} {...props} />;
+    return <canvas ref={canvasRef} {...props} />;
 };
