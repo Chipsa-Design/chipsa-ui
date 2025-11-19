@@ -19,13 +19,15 @@ pnpm install
 ## Разработка
 
 ```bash
+# Дока dev-режим
+cd apps/www
+pnpm install
+pnpm dev
+```
+
+```bash
 # Сборка всех пакетов
 pnpm build
-
-# Сборка отдельных пакетов
-pnpm build:core
-pnpm build:react
-pnpm build:astro
 ```
 
 ## Лицензия
