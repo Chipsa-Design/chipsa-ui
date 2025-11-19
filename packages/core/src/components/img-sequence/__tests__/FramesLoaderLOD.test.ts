@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { levelOfDetail } from './FramesLoaderLOD';
+import { levelOfDetail } from '../FramesLoaderLOD';
 
 describe('FramesLoaderLod', () => {
     describe('levelOfDetail', () => {
@@ -44,3 +44,4 @@ describe('FramesLoaderLod', () => {
         });
     });
 });
+

@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { ObjectPlacement } from './ObjectPlacement';
+import { ObjectPlacement } from '../ObjectPlacement';
 
 describe('ObjectPlacement', () => {
     const placement = new ObjectPlacement();
@@ -324,3 +324,4 @@ describe('ObjectPlacement', () => {
         });
     });
 });
+

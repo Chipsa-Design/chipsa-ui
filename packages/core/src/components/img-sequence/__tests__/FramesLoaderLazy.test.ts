@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { getRangedBoundedIndexes } from './FramesLoaderLazy';
+import { getRangedBoundedIndexes } from '../FramesLoaderLazy';
 
 describe('FramesLoaderLazy', () => {
     it('Should get ranged bounded indexes correctly ', () => {
@@ -40,3 +40,4 @@ describe('FramesLoaderLazy', () => {
         );
     });
 });
+

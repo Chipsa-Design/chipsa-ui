@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import { FramesIndexesList } from './FramesIndexesList';
+import { FramesIndexesList } from '../FramesIndexesList';
 
 describe('FramesIndexesList', () => {
     it('Should insert indexes correctly', () => {
@@ -94,3 +94,4 @@ describe('FramesIndexesList', () => {
         assert.equal(list.closest(100), 38);
     });
 });
+
