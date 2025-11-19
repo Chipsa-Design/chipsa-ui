@@ -2,8 +2,10 @@ import react from '@astrojs/react';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
+import astrobook from 'astrobook';
 
 export default defineConfig({
+    trailingSlash: 'always',
     server: {
         port: 3000,
     },
@@ -20,6 +22,9 @@ export default defineConfig({
                     items: [{ slug: 'components' }, { slug: 'components/img-sequence' }],
                 },
             ],
+        }),
+        astrobook({
+            subpath: '/playground/',
         }),
     ],
     vite: {
