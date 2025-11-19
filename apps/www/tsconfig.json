@@ -3,7 +3,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@astro/*": ["@/../../../packages/astro/src/*"]
         }
     },
     "include": [".astro/types.d.ts", "**/*"],

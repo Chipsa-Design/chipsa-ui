@@ -25,6 +25,7 @@ export default defineConfig({
         }),
         astrobook({
             subpath: '/playground/',
+            directory: 'src/astrobook',
         }),
     ],
     vite: {

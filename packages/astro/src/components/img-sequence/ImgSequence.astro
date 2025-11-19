@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-export type Props = HTMLAttributes<'dialog'> & {};
+export type Props = HTMLAttributes<'canvas'> & {};
 
 const { ...props } = Astro.props;
 ---
@@ -12,16 +12,19 @@ const { ...props } = Astro.props;
     import { ImgSequence } from '@chipsa-ui/core';
 
     Array.from(document.querySelectorAll('canvas.js-img-sequence-canvas')).forEach((canvas) => {
-        new ImgSequence({
+        const imgSequence = new ImgSequence({
             canvas: canvas as HTMLCanvasElement,
             loader: {
-                strategy: 'lazy',
-                framesCount: 100,
-                getFrameUrl: (idx) => `/frames/frame-${idx}.webp`,
-                framesLoadingRange: 10,
+                strategy: 'instant',
+                framesCount: 354,
+                getFrameUrl: (idx) => `/img/sequence/image-${(idx + 1).toString().padStart(3, '0')}.webp`,
+                onReady() {
+                    imgSequence.render({ fallbackToClosestFrame: true });
+                    imgSequence.play();
+                },
             },
             playback: {
-                fps: 30,
+                fps: 60,
                 loop: true,
             },
             render: {

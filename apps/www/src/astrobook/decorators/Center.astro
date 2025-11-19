@@ -1,0 +1,12 @@
+<div class="astrobook-center">
+    <slot />
+</div>
+
+<style>
+    :global(*:has(> .astrobook-center)) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
