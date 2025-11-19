@@ -10,6 +10,7 @@
     "scripts": {
         "build:core": "npm run build -w @chipsa-ui/core",
         "build:react": "npm run build -w @chipsa-ui/react",
+        "build:astro": "npm run build -w @chipsa-ui/astro",
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --ignore-unknown --write \"**/*\""
     },
