@@ -27,9 +27,9 @@ runs:
     - name: Add known hosts
       shell: bash
       run: |
-        ssh-keyscan -H ${{ inputs.remote_host }} >> ~/.ssh/known_hosts
+        ssh-keyscan -H -p 33022 ${{ inputs.remote_host }} >> ~/.ssh/known_hosts
 
     - name: Deploy docs
       shell: bash
       run: |
-        rsync -arvh --delete-after apps/www/dist ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}/apps/www
+        rsync -arvh --delete-after -e "ssh -p 33022" apps/www/dist ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}/apps/www

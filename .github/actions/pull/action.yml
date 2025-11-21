@@ -27,6 +27,7 @@ runs:
         host: ${{ inputs.remote_host }}
         username: ${{ inputs.remote_user }}
         key: ${{ inputs.ssh_private_key }}
+        port: 33022
         script: |
           cd ${{ inputs.target }}
           git checkout ${{ inputs.branch }}
