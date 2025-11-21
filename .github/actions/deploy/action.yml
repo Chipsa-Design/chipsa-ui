@@ -22,7 +22,6 @@ runs:
       uses: shimataro/ssh-key-action@v2
       with:
         key: ${{ inputs.ssh_private_key }}
-        name: id_rsa_github
         known_hosts: unnecessary
 
     - name: Add known hosts
