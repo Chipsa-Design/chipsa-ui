@@ -7,7 +7,7 @@
         "build:core": "pnpm --filter @chipsa-ui/core build",
         "build:react": "pnpm --filter @chipsa-ui/react build",
         "build:astro": "pnpm --filter @chipsa-ui/astro build",
-        "build": "concurrently 'pnpm build:core' 'pnpm build:react'",
+        "build": "pnpm -r build",
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --ignore-unknown --write \"**/*\""
     },
