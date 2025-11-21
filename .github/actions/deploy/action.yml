@@ -14,10 +14,6 @@ inputs:
   target:
     description: "Target directory"
     required: true
-  deploy_html:
-    description: "Deploy html directory"
-    required: false
-    default: "false"
 
 runs:
   using: "composite"
@@ -33,13 +29,7 @@ runs:
       run: |
         ssh-keyscan -H ${{ inputs.remote_host }} >> ~/.ssh/known_hosts
 
-    - name: Deploy html files
-      if: ${{ inputs.deploy_html == 'true' }}
+    - name: Deploy docs
       shell: bash
       run: |
-        rsync -arvh --delete-after --exclude="html/partials" html ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}
-
-    - name: Deploy build files
-      shell: bash
-      run: |
-        rsync -arvh --delete-after local/templates/main/frontend/build ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}/local/templates/main/frontend
+        rsync -arvh --delete-after apps/www/dist/ ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}/

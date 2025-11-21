@@ -1,7 +1,7 @@
 {
     "$schema": "https://ui.shadcn.com/schema/registry.json",
     "name": "chipsa-ui",
-    "homepage": "https://chipsadesign.github.io",
+    "homepage": "https://ui.chipsa.design",
     "items": [
         {
             "name": "img-sequence",
