@@ -70,6 +70,23 @@
                 }
             ],
             "dependencies": ["delegate"]
+        },
+        {
+            "name": "dropdown",
+            "type": "registry:component",
+            "title": "Dropdown (Astro)",
+            "description": "A dropdown component for Astro.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/components/Dropdown/Dropdown.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/components/Dropdown/index.ts",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": ["delegate"]
         }
     ]
 }

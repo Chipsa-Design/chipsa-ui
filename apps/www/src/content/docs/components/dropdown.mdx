@@ -1,0 +1,147 @@
+---
+title: Dropdown
+description: Выпадающее меню с настраиваемым позиционированием и автоматическим закрытием при клике вне области
+---
+
+import Dropdown from '@astro/components/dropdown/Dropdown.astro';
+import Preview from '@astrobook/utils/Preview.astro';
+import { TabItem, Tabs } from '@astrojs/starlight/components';
+
+<Preview name="dropdown">
+    <Dropdown>
+        <button slot="trigger" class="dropdown-toggler js-dropdown-toggler">
+            Открыть меню
+        </button>
+        <div class="dropdown-menu">
+            <div>
+                <a href="#">Пункт 1</a>
+            </div>
+            <div>
+                <a href="#">Пункт 2</a>
+            </div>
+            <div>
+                <a href="#">Пункт 3</a>
+            </div>
+        </div>
+    </Dropdown>
+</Preview>
+
+## Описание
+
+Dropdown — это компонент для создания выпадающих меню с настраиваемым позиционированием. Компонент автоматически закрывается при клике вне области и поддерживает различные позиции размещения контента относительно триггера.
+
+## Основные возможности
+
+- Настраиваемое позиционирование (7 вариантов)
+- Автоматическое закрытие при клике вне области
+- Плавная анимация появления/исчезновения
+- Поддержка слотов для триггера и контента
+- Поддержка всех стандартных HTML атрибутов
+
+## API
+
+### Props
+
+#### `position?`
+
+`'top-left' | 'top-right' | 'top-center' | 'center-right' | 'bottom-left' | 'bottom-right' | 'bottom-center'` — позиция выпадающего меню относительно триггера. По умолчанию: `'bottom-center'`.
+
+#### Остальные HTML атрибуты
+
+Компонент принимает все стандартные HTML атрибуты элемента `<div>`.
+
+### Слоты
+
+#### `trigger` (required)
+
+Содержимое кнопки-триггера, которая открывает/закрывает меню. Должен содержать элемент с классами `dropdown-toggler js-dropdown-toggler`.
+
+#### Default slot
+
+Содержимое выпадающего меню.
+
+## Использование
+
+### Базовое использование
+
+```astro
+---
+import Dropdown from '@astro/components/dropdown/Dropdown.astro';
+---
+
+<Dropdown>
+    <button slot="trigger" class="dropdown-toggler js-dropdown-toggler"> Открыть меню </button>
+    <div class="dropdown-menu">
+        <a href="#">Пункт 1</a>
+        <a href="#">Пункт 2</a>
+        <a href="#">Пункт 3</a>
+    </div>
+</Dropdown>
+```
+
+### С настройкой позиции
+
+```astro
+---
+import Dropdown from '@astro/components/dropdown/Dropdown.astro';
+---
+
+<Dropdown position="top-right">
+    <button slot="trigger" class="dropdown-toggler js-dropdown-toggler"> Меню сверху справа </button>
+    <div class="dropdown-menu">
+        <a href="#">Пункт меню</a>
+    </div>
+</Dropdown>
+```
+
+### Различные позиции
+
+```astro
+---
+import Dropdown from '@astro/components/dropdown/Dropdown.astro';
+---
+
+<Tabs>
+    <TabItem label="bottom-center (по умолчанию)">
+        <Dropdown position="bottom-center">
+            <button slot="trigger" class="dropdown-toggler js-dropdown-toggler"> Снизу по центру </button>
+            <div class="dropdown-menu">Контент меню</div>
+        </Dropdown>
+    </TabItem>
+
+    <TabItem label="top-left">
+        <Dropdown position="top-left">
+            <button slot="trigger" class="dropdown-toggler js-dropdown-toggler"> Сверху слева </button>
+            <div class="dropdown-menu">Контент меню</div>
+        </Dropdown>
+    </TabItem>
+
+    <TabItem label="center-right">
+        <Dropdown position="center-right">
+            <button slot="trigger" class="dropdown-toggler js-dropdown-toggler"> Справа по центру </button>
+            <div class="dropdown-menu">Контент меню</div>
+        </Dropdown>
+    </TabItem>
+</Tabs>
+```
+
+## Позиции
+
+- `top-left` — сверху слева
+- `top-right` — сверху справа
+- `top-center` — сверху по центру
+- `center-right` — справа по центру
+- `bottom-left` — снизу слева
+- `bottom-right` — снизу справа
+- `bottom-center` — снизу по центру (по умолчанию)
+
+## Поведение
+
+Компонент автоматически обрабатывает:
+
+- **Открытие/закрытие**: клик по элементу с классом `dropdown-toggler js-dropdown-toggler`
+- **Закрытие**: клик вне области выпадающего меню
+
+## CSS классы
+
+Компонент автоматически добавляет класс `dropdown--opened` при открытом состоянии, который можно использовать для дополнительной кастомизации.
