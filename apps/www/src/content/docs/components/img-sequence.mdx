@@ -4,11 +4,11 @@ description: Компонент для воспроизведения после
 ---
 
 import ImgSequence from '@astro/components/img-sequence/ImgSequence.astro';
+import { TabItem, Tabs } from '@astrojs/starlight/components';
 import Preview from '@/astrobook/utils/Preview.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Preview name="img-sequence">
-    <ImgSequence style='width: 100%; height: 100%;' />
+    <ImgSequence style="width: 100%; height: 100%;" />
 </Preview>
 
 ## Описание
@@ -71,8 +71,6 @@ HTMLCanvasElement для отрисовки последовательности
 - `render(options?)` — отрисовать текущий кадр
 - `destroy()` — уничтожить экземпляр и освободить ресурсы
 
-
-
 ## Использование
 
 <Tabs>
@@ -100,6 +98,7 @@ HTMLCanvasElement для отрисовки последовательности
 
     imgSequence.play();
     ```
+
   </TabItem>
   <TabItem label="React">
     ```tsx
@@ -127,5 +126,6 @@ HTMLCanvasElement для отрисовки последовательности
         );
     }
     ```
+
   </TabItem>
 </Tabs>
