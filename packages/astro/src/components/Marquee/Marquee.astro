@@ -1,0 +1,75 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'div'> & {
+    items: unknown[];
+};
+
+const { items, ...props } = Astro.props;
+---
+
+<div class:list={['marquee js-marquee', props.class]} {...props}>
+    {
+        items.map(async (item) => (
+            <div class="marquee__item-wrapper" set:html={await Astro.slots.render('default', [item])} />
+        ))
+    }
+</div>
+
+<style lang="scss">
+    @use '@/app/css/base/variables' as *;
+    @use '@/app/css/utils/mixins' as *;
+
+    .marquee {
+        --gap: 0px;
+
+        overflow: hidden;
+        overflow: clip;
+        contain: content;
+        position: relative;
+        width: 100%;
+        touch-action: pan-y;
+        user-select: none;
+        display: flex;
+        gap: var(--gap);
+    }
+
+    :global(.marquee--draggable) {
+        cursor: grab;
+
+        &:active {
+            cursor: grabbing;
+        }
+
+        @include hover() {
+            cursor: grab;
+        }
+    }
+
+    :global(.marquee__element) {
+        display: flex;
+        will-change: transform;
+        min-width: 100%;
+    }
+
+    :global(.marquee__container) {
+        display: flex;
+        min-width: max-content;
+        align-items: center;
+        gap: var(--gap);
+        padding-right: var(--gap);
+    }
+</style>
+
+<script>
+    import { Marquee } from '@chipsa-ui/core';
+
+    const marqueeContainers = document.querySelectorAll<HTMLElement>('.js-marquee');
+
+    marqueeContainers.forEach((container) => {
+        const marquee = new Marquee(container, {
+            speed: 30,
+            direction: 'left',
+        });
+    });
+</script>

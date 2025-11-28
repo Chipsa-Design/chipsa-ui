@@ -87,6 +87,23 @@
                 }
             ],
             "dependencies": ["delegate"]
+        },
+        {
+            "name": "marquee",
+            "type": "registry:component",
+            "title": "Marquee (Astro)",
+            "description": "A marquee component for Astro.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/components/Marquee/Marquee.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/components/Marquee/index.ts",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": []
         }
     ]
 }
