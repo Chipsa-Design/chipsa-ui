@@ -1,0 +1,177 @@
+---
+title: Popup
+description: Компонент модального окна на основе HTML dialog элемента с поддержкой анимаций и гибкой настройки
+---
+
+import Popup from '@astro/components/Popup/Popup.astro';
+import { TabItem, Tabs } from '@astrojs/starlight/components';
+import Preview from '@/astrobook/utils/Preview.astro';
+
+<Preview name="popup">
+    <Popup id="popup-example">
+        <h2>Пример модального окна</h2>
+        <p>Содержимое попапа</p>
+        <button data-dialog-close="popup-example">Закрыть</button>
+    </Popup>
+    <button data-dialog-open="popup-example">Открыть попап</button>
+</Preview>
+
+## Описание
+
+Popup — это компонент модального окна, построенный на основе нативного HTML `<dialog>` элемента. Он поддерживает плавные анимации открытия и закрытия, управление через data-атрибуты и кастомные события.
+
+## Основные возможности
+
+- Модальные окна на основе нативного `<dialog>` элемента
+- Плавные анимации открытия/закрытия с поддержкой CSS transitions
+- Управление через data-атрибуты (`data-dialog-open`, `data-dialog-close`)
+- Закрытие по клику вне модального окна
+- Кастомные события (`popup-open`, `popup-close`)
+- Поддержка prefers-reduced-motion
+- Автоматическая блокировка скролла при открытии
+
+## API
+
+### Props
+
+#### `id` (required)
+
+`string` — уникальный идентификатор модального окна. Используется для связи с кнопками открытия/закрытия через data-атрибуты.
+
+#### `closed-by?`
+
+`'any'` — если установлен, модальное окно будет закрываться при клике вне его области (на backdrop).
+
+#### `class?`
+
+`string` — дополнительные CSS классы для кастомизации стилей.
+
+#### Другие HTML атрибуты
+
+Компонент поддерживает все стандартные HTML атрибуты элемента `<dialog>`.
+
+## Использование
+
+### Базовое использование
+
+```astro
+---
+import Popup from '@astro/components/Popup/Popup.astro';
+---
+
+<Popup id="my-popup">
+    <h2>Заголовок</h2>
+    <p>Содержимое модального окна</p>
+    <button data-dialog-close="my-popup">Закрыть</button>
+</Popup>
+
+<button data-dialog-open="my-popup">Открыть попап</button>
+```
+
+### Закрытие по клику вне окна
+
+```astro
+---
+import Popup from '@astro/components/Popup/Popup.astro';
+---
+
+<Popup id="my-popup" closed-by="any">
+    <h2>Заголовок</h2>
+    <p>Это окно закроется при клике вне его области</p>
+</Popup>
+```
+
+### Кастомизация анимации
+
+```astro
+---
+import Popup from '@astro/components/Popup/Popup.astro';
+---
+
+<Popup id="my-popup" style="--transition-duration: 0.5s;">
+    <h2>Заголовок</h2>
+    <p>Модальное окно с увеличенной длительностью анимации</p>
+</Popup>
+```
+
+### Обработка событий
+
+```astro
+---
+import Popup from '@astro/components/Popup/Popup.astro';
+---
+
+<Popup id="my-popup">
+    <h2>Заголовок</h2>
+    <p>Содержимое</p>
+</Popup>
+
+<script>
+    const popup = document.getElementById('my-popup');
+
+    popup?.addEventListener('popup-open', () => {
+        console.log('Попап открыт');
+    });
+
+    popup?.addEventListener('popup-close', () => {
+        console.log('Попап закрыт');
+    });
+</script>
+```
+
+## Data-атрибуты
+
+### `data-dialog-open`
+
+Устанавливается на элемент, который должен открывать модальное окно. Значение должно совпадать с `id` модального окна.
+
+```html
+<button data-dialog-open="my-popup">Открыть</button>
+```
+
+### `data-dialog-close`
+
+Устанавливается на элемент внутри модального окна, который должен его закрывать. Значение должно совпадать с `id` модального окна.
+
+```html
+<button data-dialog-close="my-popup">Закрыть</button>
+```
+
+### `data-prevent`
+
+Опциональный атрибут для предотвращения стандартного поведения (например, предотвращение перехода по ссылке).
+
+```html
+<a href="/page" data-dialog-open="my-popup" data-prevent>Открыть попап</a>
+```
+
+## События
+
+### `popup-open`
+
+Срабатывает при открытии модального окна.
+
+### `popup-close`
+
+Срабатывает при закрытии модального окна.
+
+## CSS переменные
+
+### `--transition-duration`
+
+Длительность анимации открытия/закрытия. По умолчанию: `0.3s`.
+
+```astro
+<Popup id="my-popup" style="--transition-duration: 0.5s;">
+    <!-- содержимое -->
+</Popup>
+```
+
+## CSS классы
+
+Компонент автоматически добавляет классы для управления состоянием:
+
+- `popup--opening` — добавляется во время открытия
+- `popup--closing` — добавляется во время закрытия
+
+Эти классы можно использовать для дополнительной кастомизации анимаций.

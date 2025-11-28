@@ -105,6 +105,9 @@ importers:
       astro:
         specifier: ^4.0.0
         version: 4.16.19(@types/node@24.10.1)(lightningcss@1.30.2)(rollup@4.53.3)(typescript@5.8.2)
+      delegate:
+        specifier: ^3.2.0
+        version: 3.2.0
 
   packages/core: {}
 
@@ -2055,6 +2058,9 @@ packages:
 
   defu@6.1.4:
     resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
+
+  delegate@3.2.0:
+    resolution: {integrity: sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==}
 
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
@@ -6636,6 +6642,8 @@ snapshots:
   deepmerge@4.3.1: {}
 
   defu@6.1.4: {}
+
+  delegate@3.2.0: {}
 
   depd@2.0.0: {}
 
