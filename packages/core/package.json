@@ -20,6 +20,12 @@
     "scripts": {
         "build": "vite build"
     },
+    "files": [
+        "dist",
+        "package.json",
+        "README.md",
+        "LICENSE"
+    ],
     "keywords": [
         "components",
         "design",
