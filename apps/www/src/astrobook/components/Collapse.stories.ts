@@ -1,4 +1,4 @@
-import Collapse from '@astro/Collapse/Collapse.astro';
+import Collapse from '@astro/components/Collapse/Collapse.astro';
 import Center from '@astrobook/decorators/Center.astro';
 import type { ComponentProps } from 'astro/types';
 

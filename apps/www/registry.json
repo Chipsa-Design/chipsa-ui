@@ -61,11 +61,11 @@
             "description": "A collapse component for Astro.",
             "files": [
                 {
-                    "path": "../../packages/astro/src/Collapse/Collapse.astro",
+                    "path": "../../packages/astro/src/components/Collapse/Collapse.astro",
                     "type": "registry:component"
                 },
                 {
-                    "path": "../../packages/astro/src/Collapse/index.ts",
+                    "path": "../../packages/astro/src/components/Collapse/index.ts",
                     "type": "registry:component"
                 }
             ],
