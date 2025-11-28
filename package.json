@@ -9,6 +9,7 @@
         "build:astro": "pnpm --filter @chipsa-ui/astro build",
         "build": "pnpm -r build",
         "build:registry": "pnpm --filter www build:registry",
+        "publish:core": "pnpm --filter @chipsa-ui/core publish",
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --ignore-unknown --write \"**/*\""
     },
