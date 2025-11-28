@@ -1,0 +1,20 @@
+@use '@/app/css/utils/mixins' as *;
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-size-adjust: 100%;
+    font-size-adjust: 100%;
+}
+
+body {
+    @extend %text-default;
+}
+
+%text-default {
+    @include responsive-font-size(15px, 18px, 1280px, 1920px);
+}
+
+.text-default {
+    @extend %text-default;
+}

@@ -1,16 +1,16 @@
-import Popup from '@astro/components/Popup/Popup.astro';
 import type { ComponentProps } from 'astro/types';
-import Center from '@/astrobook/decorators/Center.astro';
+import Center from '../decorators/Center.astro';
+import PopupExample from './PopupExample.astro';
 
-type PopupProps = ComponentProps<typeof Popup>;
+type PopupExampleProps = ComponentProps<typeof PopupExample>;
 
 export default {
-    component: Popup,
+    component: PopupExample,
 };
 
 export const Default = {
     args: {
         id: 'popup-default',
-    } satisfies PopupProps,
+    } satisfies PopupExampleProps,
     decorators: [{ component: Center }],
 };

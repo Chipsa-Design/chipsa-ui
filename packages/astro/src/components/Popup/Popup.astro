@@ -16,7 +16,7 @@ const { id, ...props } = Astro.props;
 
 <style lang="scss">
     @use '@/app/css/base/variables' as *;
-    @use '@/app/css/utils/mixins' as *;
+    @use '@/app/css/utils/mixins' as *;  
 
     .popup {
         --transition-duration: 0.3s;
@@ -97,6 +97,7 @@ const { id, ...props } = Astro.props;
 
 <script>
     import delegate from 'delegate';
+    import { lockBodyScroll, unlockBodyScroll } from '@/shared/lib/dom';
 
     const transitionBehaviorAllowDiscreteNotSupported =
         navigator.userAgent.includes('Firefox') || !CSS.supports('transition-behavior', 'allow-discrete');
@@ -105,10 +106,17 @@ const { id, ...props } = Astro.props;
         document.documentElement.classList.add('transition-behavior-allow-discrete-not-supported');
     }
 
+    const closeTimeoutsMap = new Map<HTMLDialogElement, NodeJS.Timeout>();
+    const openingTimeoutsMap = new Map<HTMLDialogElement, NodeJS.Timeout>();
+    const closingTimeoutsMap = new Map<HTMLDialogElement, NodeJS.Timeout>();
+
     delegate(document, '[data-dialog-open]', 'click', (event: any) => {
-        event.preventDefault();
         const target = event.delegateTarget;
         const dialog = document.getElementById(target.getAttribute('data-dialog-open'));
+
+        if (target.getAttribute('data-prevent')) {
+            event.preventDefault();
+        }
 
         if (dialog instanceof HTMLDialogElement) {
             dialog.showModal();
@@ -116,12 +124,92 @@ const { id, ...props } = Astro.props;
     });
 
     delegate(document, '[data-dialog-close]', 'click', (event: any) => {
-        event.preventDefault();
         const target = event.delegateTarget;
         const dialog = document.getElementById(target.getAttribute('data-dialog-close'));
+
+        if (target.getAttribute('data-prevent')) {
+            event.preventDefault();
+        }
 
         if (dialog instanceof HTMLDialogElement) {
             dialog.close();
         }
+    });
+
+    delegate(document, 'dialog', 'click', (event: any) => {
+        const target = event.target;
+        const delegateTarget = event.delegateTarget;
+
+        if (
+            delegateTarget instanceof HTMLDialogElement &&
+            delegateTarget.getAttribute('closed-by') === 'any' &&
+            delegateTarget === target
+        ) {
+            delegateTarget.close();
+        }
+    });
+
+    const mo = new MutationObserver((recs) => {
+        recs.forEach(({ attributeName: attr, target: dial }) => {
+            if (dial instanceof HTMLDialogElement && attr === 'open') {
+                if (dial.open) {
+                    dial.dispatchEvent(new Event('popup-open'));
+
+                    const transitionDuration = parseFloat(
+                        getComputedStyle(dial).getPropertyValue('--transition-duration') || '0',
+                    );
+
+                    clearTimeout(closeTimeoutsMap.get(dial));
+                    clearTimeout(openingTimeoutsMap.get(dial));
+                    clearTimeout(closingTimeoutsMap.get(dial));
+
+                    lockBodyScroll();
+                    dial.classList.add('popup--opening');
+
+                    openingTimeoutsMap.set(
+                        dial,
+                        setTimeout(
+                            () => {
+                                dial.classList.remove('popup--opening');
+                            },
+                            transitionDuration * 1000 + 1,
+                        ),
+                    );
+                } else {
+                    dial.dispatchEvent(new Event('popup-close'));
+
+                    const transitionDuration = parseFloat(
+                        getComputedStyle(dial).getPropertyValue('--transition-duration') || '0',
+                    );
+
+                    clearTimeout(closeTimeoutsMap.get(dial));
+                    clearTimeout(openingTimeoutsMap.get(dial));
+                    clearTimeout(closingTimeoutsMap.get(dial));
+
+                    closeTimeoutsMap.set(
+                        dial,
+                        setTimeout(() => {
+                            unlockBodyScroll();
+                        }, transitionDuration * 1000),
+                    );
+
+                    dial.classList.add('popup--closing');
+
+                    closingTimeoutsMap.set(
+                        dial,
+                        setTimeout(
+                            () => {
+                                dial.classList.remove('popup--closing');
+                            },
+                            transitionDuration * 1000 + 1,
+                        ),
+                    );
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('dialog').forEach((dial) => {
+        mo.observe(dial, { attributes: true });
     });
 </script>

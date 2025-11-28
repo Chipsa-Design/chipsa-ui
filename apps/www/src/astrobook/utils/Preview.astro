@@ -6,15 +6,17 @@ export type Props = HTMLAttributes<'a'> & {};
 const { name, ...props } = Astro.props;
 ---
 
+<div class:list={['preview', props.class]} {...props}>
+    <slot />
+</div>
+
 <a
     href={`/playground/dashboard/components/${name}/default/`}
     target="_blank"
     rel="noreferrer"
     title="Open in Astrobook"
-    class:list={['preview', props.class]}
-    {...props}
 >
-    <slot />
+    Open in Astrobook
 </a>
 
 <style>

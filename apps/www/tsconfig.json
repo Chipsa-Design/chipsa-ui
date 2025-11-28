@@ -3,12 +3,13 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"],
-            "@core/*": ["@/../../../packages/core/src/*"],
-            "@react/*": ["@/../../../packages/react/src/*"],
-            "@astro/*": ["@/../../../packages/astro/src/*"]
+            "@astrobook/*": ["/src/astrobook/*"],
+            "@core/*": ["../../packages/core/src/*"],
+            "@react/*": ["../../packages/react/src/*"],
+            "@astro/*": ["../../packages/astro/src/*"],
+            "@/*": ["../../packages/astro/src/*"]
         }
     },
-    "include": [".astro/types.d.ts", "**/*"],
+    "include": [".astro/types.d.ts", "env.d.ts", "**/*"],
     "exclude": ["dist"]
 }

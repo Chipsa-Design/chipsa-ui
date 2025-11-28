@@ -19,7 +19,7 @@ export default defineConfig({
                 },
                 {
                     label: 'Компоненты',
-                    items: [{ slug: 'components' }, { slug: 'components/img-sequence' }],
+                    items: [{ slug: 'components' }, { slug: 'components/img-sequence' }, { slug: 'components/popup' }],
                 },
             ],
         }),
