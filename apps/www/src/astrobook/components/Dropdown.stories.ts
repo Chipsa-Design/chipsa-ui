@@ -1,4 +1,4 @@
-import Dropdown from '@astro/components/dropdown/Dropdown.astro';
+import Dropdown from '@astro/components/Dropdown';
 import Center from '@astrobook/decorators/Center.astro';
 import type { ComponentProps } from 'astro/types';
 
@@ -14,4 +14,3 @@ export const Default = {
     } satisfies DropdownProps,
     decorators: [{ component: Center }],
 };
-
