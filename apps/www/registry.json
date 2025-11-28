@@ -44,11 +44,7 @@
             "description": "A popup component for Astro.",
             "files": [
                 {
-                    "path": "../../packages/astro/src/components/Popup/Popup.astro",
-                    "type": "registry:component"
-                },
-                {
-                    "path": "../../packages/astro/src/components/Popup/index.ts",
+                    "path": "../../packages/astro/src/components/Popup",
                     "type": "registry:component"
                 }
             ],
