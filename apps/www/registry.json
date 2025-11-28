@@ -4,7 +4,7 @@
     "homepage": "https://ui.chipsa.design",
     "items": [
         {
-            "name": "img-sequence",
+            "name": "img-sequence:core",
             "type": "registry:component",
             "title": "ImgSequence",
             "description": "A img sequence component",
@@ -24,7 +24,7 @@
             ]
         },
         {
-            "name": "img-sequence:astro",
+            "name": "img-sequence",
             "type": "registry:component",
             "title": "ImgSequence (Astro)",
             "description": "A img sequence component for Astro.",
@@ -38,7 +38,7 @@
         },
 
         {
-            "name": "popup:astro",
+            "name": "popup",
             "type": "registry:component",
             "title": "Popup (Astro)",
             "description": "A popup component for Astro.",
