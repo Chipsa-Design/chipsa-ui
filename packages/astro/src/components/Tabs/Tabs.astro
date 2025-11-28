@@ -1,0 +1,148 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export type Props = HTMLAttributes<'div'> & {
+    id: string;
+};
+
+const { ...props } = Astro.props;
+---
+
+<div class:list={['tabs js-tabs', props.class]} role="tablist" {...props}>
+    <slot />
+</div>
+
+<script>
+    const TOGGLER_DATA_ATTR = 'data-tabs-toggler';
+    const CONTENT_DATA_ATTR = 'data-tabs-content';
+    const TOGGLER_ACTIVE_CLASS = 'is-active';
+
+    function setTabById(id: string, tabsId: string) {
+        const allTogglers = document.querySelectorAll<HTMLElement>(`[${TOGGLER_DATA_ATTR}][data-tabs-id="${tabsId}"]`);
+        const allContents = document.querySelectorAll<HTMLElement>(`[${CONTENT_DATA_ATTR}][data-tabs-id="${tabsId}"]`);
+
+        const tabsEl = document.querySelector<HTMLElement>(`#${tabsId}`);
+        const tabsToggler = tabsEl?.querySelector<HTMLElement>(`[${TOGGLER_DATA_ATTR}="${id}"]`);
+        const tabsContent = tabsEl?.querySelector<HTMLElement>(`#${id}`);
+
+        allContents.forEach((el) => {
+            el.hidden = true;
+            el.setAttribute('aria-hidden', 'true');
+        });
+
+        allTogglers.forEach((el) => {
+            el.classList.remove(TOGGLER_ACTIVE_CLASS);
+            el.setAttribute('aria-selected', 'false');
+        });
+
+        if (tabsContent) {
+            tabsContent.hidden = false;
+            tabsContent.setAttribute('aria-hidden', 'false');
+        }
+
+        if (tabsToggler) {
+            tabsToggler.classList.add(TOGGLER_ACTIVE_CLASS);
+            tabsToggler.setAttribute('aria-selected', 'true');
+            tabsToggler.focus();
+        }
+    }
+
+    function onTogglerClick(this: HTMLElement) {
+        const id = this.closest<HTMLElement>(
+            `[${TOGGLER_DATA_ATTR}]${this.dataset.tabsId ? `[data-tabs-id="${this.dataset.tabsId}"]` : ''}`,
+        )?.dataset.tabsToggler;
+
+        if (id) {
+            setTabById(id, this.dataset.tabsId || '');
+        }
+    }
+
+    function onTogglerKeydown(this: HTMLElement, event: KeyboardEvent) {
+        const tabsId = this.dataset.tabsId || '';
+        const allTogglers = Array.from(
+            document.querySelectorAll<HTMLElement>(`[${TOGGLER_DATA_ATTR}][data-tabs-id="${tabsId}"]`),
+        );
+        const currentIndex = allTogglers.indexOf(this);
+        let targetIndex = currentIndex;
+
+        switch (event.key) {
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                event.preventDefault();
+                targetIndex = currentIndex > 0 ? currentIndex - 1 : allTogglers.length - 1;
+                break;
+            case 'ArrowRight':
+            case 'ArrowDown':
+                event.preventDefault();
+                targetIndex = currentIndex < allTogglers.length - 1 ? currentIndex + 1 : 0;
+                break;
+            case 'Home':
+                event.preventDefault();
+                targetIndex = 0;
+                break;
+            case 'End':
+                event.preventDefault();
+                targetIndex = allTogglers.length - 1;
+                break;
+            case 'Enter':
+            case ' ':
+                event.preventDefault();
+                this.click();
+                return;
+            default:
+                return;
+        }
+
+        const targetToggler = allTogglers[targetIndex];
+        const targetId = targetToggler?.dataset.tabsToggler;
+
+        if (targetId) {
+            setTabById(targetId, tabsId);
+        }
+    }
+
+    Array.from(document.querySelectorAll<HTMLElement>('.js-tabs')).forEach((tabsEl) => {
+        const tabTogglers = tabsEl.querySelectorAll<HTMLElement>(`[${TOGGLER_DATA_ATTR}]`);
+
+        if (!tabsEl.hasAttribute('role')) {
+            tabsEl.setAttribute('role', 'tablist');
+        }
+
+        tabTogglers.forEach((el, index) => {
+            const tabsEl = el.closest<HTMLElement>(`.js-tabs`);
+            el.dataset.tabsId = tabsEl?.id || '';
+
+            if (!el.hasAttribute('role')) {
+                el.setAttribute('role', 'tab');
+            }
+            if (!el.hasAttribute('aria-selected')) {
+                el.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+            }
+            if (!el.hasAttribute('aria-controls')) {
+                el.setAttribute('aria-controls', el.dataset.tabsToggler || '');
+            }
+
+            el.addEventListener('click', onTogglerClick);
+            el.addEventListener('keydown', onTogglerKeydown);
+        });
+
+        const tabContents = tabsEl.querySelectorAll<HTMLElement>(`[${CONTENT_DATA_ATTR}]`);
+        tabContents.forEach((el, index) => {
+            el.dataset.tabsId = tabsEl.id || '';
+
+            if (!el.hasAttribute('role')) {
+                el.setAttribute('role', 'tabpanel');
+            }
+            if (!el.hasAttribute('aria-hidden')) {
+                el.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
+            }
+            if (!el.hasAttribute('aria-labelledby')) {
+                const relatedToggler = tabsEl.querySelector<HTMLElement>(`[${TOGGLER_DATA_ATTR}="${el.id}"]`);
+
+                if (relatedToggler?.id) {
+                    el.setAttribute('aria-labelledby', relatedToggler.id);
+                }
+            }
+        });
+    });
+</script>

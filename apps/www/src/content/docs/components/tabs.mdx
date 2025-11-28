@@ -1,0 +1,163 @@
+---
+title: Tabs
+description: Компонент вкладок с поддержкой клавиатурной навигации и accessibility
+---
+
+import Tabs from '@astro/components/Tabs/Tabs.astro';
+import Preview from '@astrobook/utils/Preview.astro';
+import { Tabs as StarlightTabs, TabItem } from '@astrojs/starlight/components';
+
+<Preview name="tabs">
+    <Tabs id="tabs-example">
+        <button data-tabs-toggler="tab-1" class="is-active">Вкладка 1</button>
+        <button data-tabs-toggler="tab-2">Вкладка 2</button>
+        <button data-tabs-toggler="tab-3">Вкладка 3</button>
+
+        <div id="tab-1" data-tabs-content>
+            <h3>Содержимое первой вкладки</h3>
+            <p>Текст первой вкладки</p>
+        </div>
+
+        <div id="tab-2" data-tabs-content hidden>
+            <h3>Содержимое второй вкладки</h3>
+            <p>Текст второй вкладки</p>
+        </div>
+
+        <div id="tab-3" data-tabs-content hidden>
+            <h3>Содержимое третьей вкладки</h3>
+            <p>Текст третьей вкладки</p>
+        </div>
+    </Tabs>
+
+</Preview>
+
+## Описание
+
+Tabs — это компонент вкладок с поддержкой клавиатурной навигации и полной accessibility. Компонент автоматически управляет состоянием вкладок, добавляет необходимые ARIA-атрибуты и обеспечивает навигацию с клавиатуры.
+
+## Основные возможности
+
+- Клавиатурная навигация (стрелки, Home, End, Enter, Space)
+- Полная поддержка accessibility (ARIA-атрибуты)
+- Автоматическое управление состоянием активной вкладки
+- Гибкая структура через data-атрибуты
+- Поддержка всех стандартных HTML атрибутов
+
+## API
+
+### Props
+
+#### `id` (required)
+
+`string` — уникальный идентификатор компонента вкладок. Используется для группировки элементов вкладок.
+
+#### `class?`
+
+`string` — дополнительные CSS классы для кастомизации стилей.
+
+#### Другие HTML атрибуты
+
+Компонент поддерживает все стандартные HTML атрибуты элемента `<div>`.
+
+## Использование
+
+### Базовое использование
+
+```astro
+---
+import Tabs from '@astro/components/Tabs/Tabs.astro';
+---
+
+<Tabs id="example-tabs">
+    <button data-tabs-toggler="tab-1" class="is-active">Вкладка 1</button>
+    <button data-tabs-toggler="tab-2">Вкладка 2</button>
+    <button data-tabs-toggler="tab-3">Вкладка 3</button>
+
+    <div id="tab-1" data-tabs-content>
+        <h3>Содержимое первой вкладки</h3>
+        <p>Текст первой вкладки</p>
+    </div>
+
+    <div id="tab-2" data-tabs-content>
+        <h3>Содержимое второй вкладки</h3>
+        <p>Текст второй вкладки</p>
+    </div>
+
+    <div id="tab-3" data-tabs-content>
+        <h3>Содержимое третьей вкладки</h3>
+        <p>Текст третьей вкладки</p>
+    </div>
+</Tabs>
+```
+
+### Кастомизация стилей
+
+```astro
+---
+import Tabs from '@astro/components/Tabs/Tabs.astro';
+---
+
+<Tabs id="custom-tabs" class="my-custom-tabs">
+    <button data-tabs-toggler="tab-1" class="is-active">Вкладка 1</button>
+    <button data-tabs-toggler="tab-2">Вкладка 2</button>
+
+    <div id="tab-1" data-tabs-content>
+        <p>Содержимое первой вкладки</p>
+    </div>
+
+    <div id="tab-2" data-tabs-content>
+        <p>Содержимое второй вкладки</p>
+    </div>
+</Tabs>
+```
+
+## Data-атрибуты
+
+### `data-tabs-toggler`
+
+Устанавливается на элемент (обычно кнопку), который переключает вкладку. Значение должно совпадать с `id` содержимого вкладки.
+
+```html
+<button data-tabs-toggler="tab-1">Вкладка 1</button>
+```
+
+### `data-tabs-content`
+
+Устанавливается на элемент, который содержит содержимое вкладки. Элемент должен иметь `id`, соответствующий значению `data-tabs-toggler`.
+
+```html
+<div id="tab-1" data-tabs-content>Содержимое вкладки</div>
+```
+
+### `data-tabs-id`
+
+Автоматически устанавливается компонентом для группировки элементов вкладок. Обычно не требуется устанавливать вручную.
+
+## Клавиатурная навигация
+
+Компонент поддерживает полную клавиатурную навигацию:
+
+- **←/↑** — переключение на предыдущую вкладку
+- **→/↓** — переключение на следующую вкладку
+- **Home** — переход к первой вкладке
+- **End** — переход к последней вкладке
+- **Enter/Space** — активация текущей вкладки
+
+## Accessibility
+
+Компонент автоматически добавляет необходимые ARIA-атрибуты:
+
+- `role="tablist"` для контейнера вкладок
+- `role="tab"` для переключателей вкладок
+- `role="tabpanel"` для содержимого вкладок
+- `aria-selected` для указания активной вкладки
+- `aria-hidden` для скрытого содержимого
+- `aria-controls` и `aria-labelledby` для связывания элементов
+
+## CSS классы
+
+Компонент использует следующие классы:
+
+- `tabs` — базовый класс контейнера
+- `js-tabs` — класс для инициализации JavaScript функциональности
+- `is-active` — класс для активной вкладки (добавляется вручную на первую вкладку)

@@ -1,0 +1,56 @@
+---
+import Tabs from '@astro/components/Tabs/Tabs.astro';
+
+const { id } = Astro.props;
+---
+
+<Tabs id={id}>
+    <button
+        data-tabs-toggler="tab-1"
+        class="is-active"
+        style="padding: 0.5rem 1rem; background: #000; color: #fff; border: none; border-radius: 4px 4px 0 0; cursor: pointer; margin-right: 2px;"
+    >
+        Вкладка 1
+    </button>
+    <button
+        data-tabs-toggler="tab-2"
+        style="padding: 0.5rem 1rem; background: #f0f0f0; color: #000; border: none; border-radius: 4px 4px 0 0; cursor: pointer; margin-right: 2px;"
+    >
+        Вкладка 2
+    </button>
+    <button
+        data-tabs-toggler="tab-3"
+        style="padding: 0.5rem 1rem; background: #f0f0f0; color: #000; border: none; border-radius: 4px 4px 0 0; cursor: pointer;"
+    >
+        Вкладка 3
+    </button>
+
+    <div
+        id="tab-1"
+        data-tabs-content
+        style="padding: 1.5rem; border: 1px solid #ddd; border-radius: 0 0 4px 4px; margin-top: -1px;"
+    >
+        <h3 style="margin-top: 0;">Содержимое первой вкладки</h3>
+        <p>Это пример содержимого первой вкладки. Вы можете добавить сюда любой контент.</p>
+    </div>
+
+    <div
+        id="tab-2"
+        data-tabs-content
+        style="padding: 1.5rem; border: 1px solid #ddd; border-radius: 0 0 4px 4px; margin-top: -1px;"
+        hidden
+    >
+        <h3 style="margin-top: 0;">Содержимое второй вкладки</h3>
+        <p>Это пример содержимого второй вкладки. Компонент поддерживает клавиатурную навигацию.</p>
+    </div>
+
+    <div
+        id="tab-3"
+        data-tabs-content
+        style="padding: 1.5rem; border: 1px solid #ddd; border-radius: 0 0 4px 4px; margin-top: -1px;"
+        hidden
+    >
+        <h3 style="margin-top: 0;">Содержимое третьей вкладки</h3>
+        <p>Это пример содержимого третьей вкладки. Попробуйте использовать стрелки на клавиатуре для навигации.</p>
+    </div>
+</Tabs>

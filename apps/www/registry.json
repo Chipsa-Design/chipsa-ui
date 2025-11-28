@@ -103,6 +103,23 @@
                     "type": "registry:component"
                 }
             ],
+            "dependencies": ["@chipsa-ui/core"]
+        },
+        {
+            "name": "tabs",
+            "type": "registry:component",
+            "title": "Tabs (Astro)",
+            "description": "A tabs component for Astro with keyboard navigation and accessibility support.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/components/Tabs/Tabs.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/components/Tabs/index.ts",
+                    "type": "registry:component"
+                }
+            ],
             "dependencies": []
         }
     ]
