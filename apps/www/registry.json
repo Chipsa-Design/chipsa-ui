@@ -121,6 +121,23 @@
                 }
             ],
             "dependencies": []
+        },
+        {
+            "name": "tooltip",
+            "type": "registry:component",
+            "title": "Tooltip (Astro)",
+            "description": "A tooltip component for Astro with automatic positioning and smooth animations.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/components/Tooltip/Tooltip.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/components/Tooltip/index.ts",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": []
         }
     ]
 }

@@ -1,0 +1,161 @@
+---
+title: Tooltip
+description: Всплывающая подсказка с автоматическим позиционированием и плавными анимациями
+---
+
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+import Preview from '@astrobook/utils/Preview.astro';
+import { TabItem, Tabs } from '@astrojs/starlight/components';
+
+<Preview name="tooltip">
+    <Tooltip>
+        <button style="padding: 0.5rem 1rem; background: #000; color: #fff; border: none; border-radius: 4px; cursor: pointer;">
+            Наведите на меня
+        </button>
+        <div slot="tooltip">Это всплывающая подсказка</div>
+    </Tooltip>
+</Preview>
+
+## Описание
+
+Tooltip — это компонент всплывающей подсказки с автоматическим позиционированием и плавными анимациями. Компонент автоматически обрабатывает показ/скрытие подсказки при наведении, фокусе или клике на основном элементе.
+
+## Основные возможности
+
+- Автоматическое позиционирование с предотвращением выхода за границы экрана
+- Плавные анимации появления и исчезновения
+- Поддержка hover, focus и click событий
+- Автоматическое переворачивание при нехватке места
+- Кастомизация через CSS-переменные
+
+## API
+
+### Props
+
+Компонент поддерживает все стандартные HTML атрибуты элемента `<div>`.
+
+#### `class?`
+
+`string` — дополнительные CSS классы для кастомизации стилей.
+
+### Слоты
+
+#### `default` (required)
+
+Основной контент, на который будет навешиваться подсказка. Может быть любым интерактивным элементом (кнопка, ссылка и т.д.).
+
+#### `tooltip` (required)
+
+Содержимое подсказки. Отображается при наведении, фокусе или клике на основном элементе.
+
+## Использование
+
+### Базовое использование
+
+```astro
+---
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+---
+
+<Tooltip>
+    <button>Наведите на меня</button>
+    <div slot="tooltip">Это всплывающая подсказка</div>
+</Tooltip>
+```
+
+### С ссылкой
+
+```astro
+---
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+---
+
+<Tooltip>
+    <a href="/docs">Документация</a>
+    <div slot="tooltip">Перейти к документации</div>
+</Tooltip>
+```
+
+### Кастомизация стилей
+
+```astro
+---
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+---
+
+<Tooltip class="my-tooltip">
+    <button>Кастомная подсказка</button>
+    <div slot="tooltip">Подсказка с кастомными стилями</div>
+</Tooltip>
+
+<style>
+    .my-tooltip {
+        --bg-color: #ff0000;
+        --border-color: #cc0000;
+    }
+</style>
+```
+
+## События
+
+Компонент автоматически обрабатывает следующие события:
+
+- **Показ**: hover, focus, click на основном элементе
+- **Скрытие**: mouseleave, blur с задержкой 100ms
+
+## CSS-переменные
+
+Компонент использует следующие CSS-переменные для кастомизации:
+
+- `--bg-color` — цвет фона подсказки (по умолчанию: `#4e4e4e`)
+- `--border-color` — цвет границы (по умолчанию: `#484848`)
+- `--shift-x` — автоматически устанавливаемое смещение для стрелки (устанавливается автоматически)
+
+## Примеры
+
+<Tabs>
+    <TabItem label="Базовый пример">
+```astro
+---
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+---
+
+<Tooltip>
+    <button>Наведите на меня</button>
+    <div slot="tooltip">Простая подсказка</div>
+</Tooltip>
+```
+    </TabItem>
+    <TabItem label="С иконкой">
+```astro
+---
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+---
+
+<Tooltip>
+    <button>ℹ️</button>
+    <div slot="tooltip">Дополнительная информация</div>
+</Tooltip>
+```
+    </TabItem>
+    <TabItem label="Кастомные цвета">
+```astro
+---
+import Tooltip from '@astro/components/Tooltip/Tooltip.astro';
+---
+
+<Tooltip class="custom-tooltip">
+    <button>Кастомная подсказка</button>
+    <div slot="tooltip">Подсказка с кастомными цветами</div>
+</Tooltip>
+
+<style>
+    .custom-tooltip {
+        --bg-color: #0066cc;
+        --border-color: #0052a3;
+    }
+</style>
+```
+    </TabItem>
+</Tabs>
+
