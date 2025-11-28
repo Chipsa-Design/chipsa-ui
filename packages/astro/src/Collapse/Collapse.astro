@@ -1,0 +1,92 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export type Props = HTMLAttributes<'div'>;
+
+const { ...props } = Astro.props;
+---
+
+<div class:list={['collapse js-collapse', props.class]} aria-haspopup="true" aria-expanded="false" {...props}>
+    <button class="collapse__trigger js-collapse-trigger"><slot name="trigger" /></button>
+    <div class="collapse__content">
+        <div class="collapse__animation">
+            <div class="collapse__transform-wrapper">
+                <div class="collapse__content-el"><slot /></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style lang="scss">
+    @use '@/app/css/base/variables' as *;
+    @use '@/app/css/utils/mixins' as *;
+
+    .collapse {
+        --transition-length: 0.3s;
+        --transition-timing: ease;
+
+        &.collapse--opened {
+            .collapse__content {
+                grid-template-rows: 1fr;
+            }
+
+            .collapse__transform-wrapper {
+                transform: translateY(0);
+                visibility: visible;
+                transition:
+                    transform var(--transition-length) var(--transition-timing),
+                    visibility 0s linear;
+            }
+        }
+    }
+
+    .collapse__content {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        transition: grid-template-rows var(--transition-length) var(--transition-timing);
+    }
+
+    .collapse__animation {
+        min-height: 0;
+    }
+
+    .collapse__transform-wrapper {
+        transform: translateY(-100%);
+        visibility: hidden;
+        transition:
+            transform var(--transition-length) var(--transition-timing),
+            visibility 0s var(--transition-length) var(--transition-timing);
+    }
+
+    /* Margins inside the container will throw animation height calculations off, better use paddings */
+    .collapse__content-el > * {
+        margin: 0;
+    }
+
+    .collapse__trigger {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    import delegate from 'delegate';
+
+    const OPENED_CLASS = 'collapse--opened';
+
+    delegate(document, '.js-collapse-trigger', 'click', (event: any) => {
+        const target = event.delegateTarget as HTMLElement;
+        const collapseEl = target.closest<HTMLElement>('.js-collapse');
+
+        if (collapseEl) {
+            collapseEl.classList.toggle(OPENED_CLASS);
+            collapseEl.toggleAttribute('aria-expanded', collapseEl.classList.contains(OPENED_CLASS));
+
+            if (collapseEl.classList.contains(OPENED_CLASS)) {
+                collapseEl.dispatchEvent(new Event('expanded'));
+            } else {
+                collapseEl.dispatchEvent(new Event('collapsed'));
+            }
+        }
+    });
+</script>

@@ -1,0 +1,143 @@
+---
+title: Collapse
+description: Компонент для сворачивания/разворачивания контента с плавной анимацией
+---
+
+import Collapse from '@astro/Collapse/Collapse.astro';
+import Preview from '@astrobook/utils/Preview.astro';
+import { TabItem, Tabs } from '@astrojs/starlight/components';
+
+<Preview name="collapse">
+    <Collapse>
+        <span slot="trigger">Нажмите, чтобы развернуть</span>
+        <p>Это скрытый контент, который появляется при клике на триггер.</p>
+        <p>Можно добавить любой контент внутри компонента.</p>
+    </Collapse>
+</Preview>
+
+## Описание
+
+Collapse — это компонент для сворачивания и разворачивания контента с плавной CSS-анимацией. Он использует CSS Grid для плавного перехода высоты и поддерживает кастомные события для отслеживания состояния.
+
+## Основные возможности
+
+- Плавная анимация открытия/закрытия на основе CSS Grid
+- Два слота: `trigger` для кнопки и основной слот для контента
+- Кастомные события `expanded` и `collapsed`
+- Поддержка всех стандартных HTML атрибутов
+- Настраиваемая длительность анимации через CSS переменные
+
+## API
+
+### Props
+
+Компонент принимает все стандартные HTML атрибуты элемента `<div>`.
+
+#### `class?`
+
+`string` — дополнительные CSS классы для кастомизации стилей.
+
+### Слоты
+
+#### `trigger` (required)
+
+Содержимое кнопки, которая открывает/закрывает контент.
+
+#### Default slot
+
+Основной контент, который будет скрыт/показан при клике на триггер.
+
+## Использование
+
+### Базовое использование
+
+```astro
+---
+import Collapse from '@astro/Collapse/Collapse.astro';
+---
+
+<Collapse>
+    <span slot="trigger">Нажмите, чтобы развернуть</span>
+    <div>
+        <h3>Заголовок</h3>
+        <p>Подробная информация</p>
+        <ul>
+            <li>Элемент 1</li>
+            <li>Элемент 2</li>
+        </ul>
+    </div>
+</Collapse>
+```
+
+### Кастомизация анимации
+
+```astro
+---
+import Collapse from '@astro/Collapse/Collapse.astro';
+---
+
+<Collapse style="--transition-length: 0.5s; --transition-timing: ease-in-out;">
+    <span slot="trigger">Медленная анимация</span>
+    <p>Контент с кастомной длительностью анимации</p>
+</Collapse>
+```
+
+### Обработка событий
+
+```astro
+---
+import Collapse from '@astro/Collapse/Collapse.astro';
+---
+
+<Collapse class="my-collapse">
+    <span slot="trigger">Развернуть</span>
+    <p>Контент</p>
+</Collapse>
+
+<script>
+    const collapse = document.querySelector('.my-collapse');
+
+    collapse?.addEventListener('expanded', () => {
+        console.log('Collapse развернут');
+    });
+
+    collapse?.addEventListener('collapsed', () => {
+        console.log('Collapse свернут');
+    });
+</script>
+```
+
+## События
+
+### `expanded`
+
+Срабатывает при разворачивании контента.
+
+### `collapsed`
+
+Срабатывает при сворачивании контента.
+
+## CSS переменные
+
+### `--transition-length`
+
+Длительность анимации. По умолчанию: `0.3s`.
+
+### `--transition-timing`
+
+Функция плавности анимации. По умолчанию: `ease`.
+
+```astro
+<Collapse style="--transition-length: 0.5s; --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);">
+    <!-- содержимое -->
+</Collapse>
+```
+
+## CSS классы
+
+Компонент автоматически добавляет класс `collapse--opened` при открытом состоянии, который можно использовать для дополнительной кастомизации.
+
+## Важные замечания
+
+- Внутри контента лучше использовать `padding` вместо `margin`, так как margins могут нарушить расчет высоты анимации
+- Компонент использует делегирование событий через библиотеку `delegate` для обработки кликов на триггер

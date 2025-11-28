@@ -53,6 +53,23 @@
                 }
             ],
             "dependencies": ["delegate"]
+        },
+        {
+            "name": "collapse",
+            "type": "registry:component",
+            "title": "Collapse (Astro)",
+            "description": "A collapse component for Astro.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/Collapse/Collapse.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/Collapse/index.ts",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": ["delegate"]
         }
     ]
 }
