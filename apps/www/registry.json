@@ -35,6 +35,24 @@
                 }
             ],
             "dependencies": ["@chipsa-ui/core"]
+        },
+
+        {
+            "name": "popup:astro",
+            "type": "registry:component",
+            "title": "Popup (Astro)",
+            "description": "A popup component for Astro.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/components/Popup/Popup.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/components/Popup/index.ts",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": ["delegate"]
         }
     ]
 }
