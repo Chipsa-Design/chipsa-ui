@@ -10,7 +10,15 @@
             "description": "A img sequence component",
             "files": [
                 {
-                    "path": "registry/chipsa/core/src/components/img-sequence/",
+                    "path": "../../packages/core/src/components/img-sequence/ImgSequence.ts",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/core/src/components/img-sequence/index.ts",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/core/src/components/img-sequence/types.ts",
                     "type": "registry:component"
                 }
             ]
@@ -22,7 +30,7 @@
             "description": "A img sequence component for Astro.",
             "files": [
                 {
-                    "path": "registry/chipsa/astro/img-sequence/ImgSequence.astro",
+                    "path": "../../packages/astro/src/components/img-sequence/ImgSequence.astro",
                     "type": "registry:component"
                 }
             ],

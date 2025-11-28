@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "astro dev",
         "build": "astro build",
+        "build:registry": "shadcn build",
         "preview": "astro preview",
         "lint": "eslint"
     },
@@ -31,6 +32,7 @@
         "playwright": "^1.56.1",
         "prettier": "^3.6.2",
         "prettier-plugin-astro": "^0.14.1",
+        "shadcn": "^3.5.1",
         "tailwindcss": "^4",
         "typescript": "^5",
         "vitest": "^4.0.10"

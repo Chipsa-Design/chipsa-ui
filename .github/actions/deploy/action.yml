@@ -33,3 +33,8 @@ runs:
       shell: bash
       run: |
         rsync -arvh --delete-after -e "ssh -p 33022" apps/www/dist ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}/apps/www
+
+    - name: Deploy registry
+      shell: bash
+      run: |
+        rsync -arvh --delete-after -e "ssh -p 33022" apps/www/public/r ${{ inputs.remote_user }}@${{ inputs.remote_host }}:${{ inputs.target }}/apps/www/dist

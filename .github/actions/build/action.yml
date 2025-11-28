@@ -23,6 +23,6 @@ runs:
       shell: bash
       run: pnpm build
 
-    # - name: Build docs
-    #   shell: bash
-    #   run: pnpm build
+    - name: Build registry
+      shell: bash
+      run: pnpm build:registry
