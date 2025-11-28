@@ -39,7 +39,7 @@
 
         {
             "name": "popup",
-            "type": "registry:component",
+            "type": "registry:block",
             "title": "Popup (Astro)",
             "description": "A popup component for Astro.",
             "files": [
