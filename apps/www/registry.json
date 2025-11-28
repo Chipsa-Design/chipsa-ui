@@ -138,6 +138,23 @@
                 }
             ],
             "dependencies": []
+        },
+        {
+            "name": "scrolling-slider",
+            "type": "registry:component",
+            "title": "ScrollingSlider (Astro)",
+            "description": "A horizontal slider component with drag support, navigation buttons and automatic content adaptation.",
+            "files": [
+                {
+                    "path": "../../packages/astro/src/components/ScrollingSlider/ScrollingSlider.astro",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "../../packages/astro/src/components/ScrollingSlider/index.ts",
+                    "type": "registry:component"
+                }
+            ],
+            "dependencies": []
         }
     ]
 }

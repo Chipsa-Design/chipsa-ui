@@ -1,0 +1,180 @@
+---
+title: ScrollingSlider
+description: Горизонтальный слайдер с поддержкой перетаскивания, кнопок навигации и автоматической адаптации под размер контента
+---
+
+import ScrollingSlider from '@astro/components/ScrollingSlider/ScrollingSlider.astro';
+import Preview from '@astrobook/utils/Preview.astro';
+import { TabItem, Tabs } from '@astrojs/starlight/components';
+
+<Preview name="scrolling-slider">
+    <ScrollingSlider
+        slides={[
+            { title: 'Slide 1', description: 'Description 1' },
+            { title: 'Slide 2', description: 'Description 2' },
+            { title: 'Slide 3', description: 'Description 3' },
+        ]}
+    >
+        {(item) => (
+            <div style="padding: 2rem; background: #f0f0f0; border-radius: 8px; min-width: 300px;">
+                <h3 style="margin-top: 0;">{item.title}</h3>
+                <p>{item.description}</p>
+            </div>
+        )}
+    </ScrollingSlider>
+</Preview>
+
+## Описание
+
+ScrollingSlider — это компонент горизонтального слайдера с поддержкой перетаскивания мышью, кнопок навигации и автоматической адаптации под размер контента. Компонент автоматически рассчитывает размеры элементов и обеспечивает плавную прокрутку между слайдами.
+
+## Основные возможности
+
+- Перетаскивание мышью для навигации
+- Кнопки навигации (опционально)
+- Scroll snap для автоматического выравнивания слайдов
+- Адаптивность с автоматическим расчетом размеров элементов
+- Плавная прокрутка между слайдами
+
+## API
+
+### Props
+
+#### `slides` (required)
+
+`unknown[]` — массив данных для слайдов. Каждый элемент массива передается в слот `default` для рендеринга.
+
+#### `class?`
+
+`string` — дополнительные CSS классы для кастомизации стилей.
+
+Компонент также поддерживает все стандартные HTML атрибуты элемента `<div>`.
+
+### Слоты
+
+#### `default` (required)
+
+Функция для рендеринга каждого слайда. Принимает элемент из массива `slides` и возвращает JSX.
+
+## Использование
+
+### Базовое использование
+
+```astro
+---
+import ScrollingSlider from '@astro/components/ScrollingSlider/ScrollingSlider.astro';
+
+const slides = [
+    { title: 'Slide 1', description: 'Description 1' },
+    { title: 'Slide 2', description: 'Description 2' },
+    { title: 'Slide 3', description: 'Description 3' },
+];
+---
+
+<ScrollingSlider slides={slides}>
+    {
+        (item) => (
+            <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+            </div>
+        )
+    }
+</ScrollingSlider>
+```
+
+### С кнопками навигации
+
+```astro
+---
+import ScrollingSlider from '@astro/components/ScrollingSlider/ScrollingSlider.astro';
+
+const slides = [
+    { title: 'Slide 1', description: 'Description 1' },
+    { title: 'Slide 2', description: 'Description 2' },
+    { title: 'Slide 3', description: 'Description 3' },
+];
+---
+
+<ScrollingSlider slides={slides} class="my-slider">
+    <button class="js-scrolling-slider-prev">←</button>
+    <button class="js-scrolling-slider-next">→</button>
+
+    {
+        (item) => (
+            <div class="slide-card">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+            </div>
+        )
+    }
+</ScrollingSlider>
+```
+
+## CSS-классы
+
+- `js-scrolling-slider` — основной контейнер слайдера
+- `js-scrolling-list-container` — контейнер списка слайдов
+- `js-scrolling-list` — список слайдов
+- `js-scrolling-list__item` — отдельный слайд
+- `js-scrolling-slider-prev` — кнопка "назад"
+- `js-scrolling-slider-next` — кнопка "вперед"
+
+## CSS-переменные
+
+- `--scroll-margin-left` — отступ для scroll-margin-left элементов (по умолчанию используется `--offset-x`)
+
+## Примеры
+
+<Tabs>
+    <TabItem label="Базовый пример">
+```astro
+---
+import ScrollingSlider from '@astro/components/ScrollingSlider/ScrollingSlider.astro';
+
+const slides = [
+{ title: 'Slide 1', description: 'Description 1' },
+{ title: 'Slide 2', description: 'Description 2' },
+{ title: 'Slide 3', description: 'Description 3' },
+];
+
+---
+
+<ScrollingSlider slides={slides}>
+    {(item) => (
+        <div style="padding: 2rem; background: #f0f0f0; border-radius: 8px; min-width: 300px;">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+        </div>
+    )}
+</ScrollingSlider>
+```
+    </TabItem>
+    <TabItem label="С кнопками">
+```astro
+---
+import ScrollingSlider from '@astro/components/ScrollingSlider/ScrollingSlider.astro';
+
+const slides = [
+{ title: 'Slide 1', description: 'Description 1' },
+{ title: 'Slide 2', description: 'Description 2' },
+{ title: 'Slide 3', description: 'Description 3' },
+];
+
+---
+
+<ScrollingSlider slides={slides}>
+    <button class="js-scrolling-slider-prev" style="position: absolute; left: 0; z-index: 1;">←</button>
+    <button class="js-scrolling-slider-next" style="position: absolute; right: 0; z-index: 1;">→</button>
+
+    {(item) => (
+        <div style="padding: 2rem; background: #f0f0f0; border-radius: 8px; min-width: 300px;">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+        </div>
+    )}
+
+</ScrollingSlider>
+```
+    </TabItem>
+</Tabs>

@@ -1,0 +1,201 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export type Props = HTMLAttributes<'div'> & {
+    slides: unknown[];
+};
+
+const { slides, ...props } = Astro.props;
+---
+
+<div class:list={['scrolling-slider js-scrolling-slider', props.class]} {...props}>
+    <div class="scrolling-slider__list-container js-scrolling-list-container">
+        <ul class="list-unstyled scrolling-list js-scrolling-list">
+            {
+                slides.map(async (slide) => (
+                    <li
+                        class="scrolling-list__item js-scrolling-list__item"
+                        set:html={await Astro.slots.render('default', [slide])}
+                    />
+                ))
+            }
+        </ul>
+    </div>
+</div>
+
+<style lang="scss">
+    @use '@/app/css/base/variables' as *;
+    @use '@/app/css/utils/mixins' as *;
+
+    .scrolling-slider {
+        width: 100%;
+    }
+
+    .scrolling-list {
+        @include hidden-scrollbar();
+
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+    }
+
+    .scrolling-list__item {
+        display: flex;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        scroll-margin-left: var(--scroll-margin-left, var(--offset-x));
+
+        > :global(*) {
+            width: 100%;
+        }
+    }
+</style>
+
+<script>
+    const sliders = document.querySelectorAll<HTMLElement>('.js-scrolling-slider');
+
+    sliders.forEach((slider) => {
+        const list = slider.querySelector<HTMLElement>('.js-scrolling-list');
+
+        if (!list) return;
+
+        const container = slider.querySelector<HTMLElement>('.js-scrolling-list-container');
+
+        if (container) {
+            container.style.userSelect = 'none';
+        }
+
+        const prevBtn = slider.querySelector<HTMLElement>('.js-scrolling-slider-prev');
+        const nextBtn = slider.querySelector<HTMLElement>('.js-scrolling-slider-next');
+        const items = list.querySelectorAll<HTMLElement>('.js-scrolling-list__item');
+        let currentIndex = 0;
+        let itemWidth = 0;
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeftStart = 0;
+        let isInitialized = false;
+
+        function calculateItemWidth() {
+            const elementWidth = items[0].offsetWidth;
+            const computedStyle = getComputedStyle(list!);
+            const gap = parseFloat(computedStyle.gap) || 0;
+            itemWidth = elementWidth + gap;
+        }
+
+        function scrollToSlide(index: number) {
+            if (index < 0 || index >= items.length) return;
+
+            currentIndex = index;
+            const scrollLeft = index * itemWidth;
+
+            if (list instanceof HTMLElement) {
+                list.scrollTo({
+                    left: scrollLeft,
+                    behavior: 'smooth',
+                });
+            }
+        }
+
+        function handlePrev() {
+            if (currentIndex > 0) {
+                scrollToSlide(currentIndex - 1);
+            }
+        }
+
+        function handleNext() {
+            if (currentIndex < items.length - 1) {
+                scrollToSlide(currentIndex + 1);
+            }
+        }
+
+        function handleScroll() {
+            if (!list) return;
+
+            const scrollLeft = list.scrollLeft;
+            const newIndex = Math.round(scrollLeft / itemWidth);
+
+            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < items.length) {
+                currentIndex = newIndex;
+            }
+        }
+
+        function handleDragStart(e: MouseEvent) {
+            if (!list || !container || !isInitialized) return;
+            isDragging = true;
+            startX = e.pageX;
+            scrollLeftStart = list.scrollLeft;
+            container.style.cursor = 'grabbing';
+
+            list.style.scrollSnapType = 'none';
+        }
+
+        function handleDragMove(e: MouseEvent) {
+            if (!isDragging || !list) return;
+            e.preventDefault();
+
+            const delta = startX - e.pageX;
+            list.scrollLeft = scrollLeftStart + delta;
+        }
+
+        function handleDragEnd() {
+            if (!container || !list) return;
+            isDragging = false;
+
+            if (isInitialized) {
+                container.style.cursor = 'grab';
+            }
+
+            const scrollLeft = list.scrollLeft;
+            const delta = scrollLeft - scrollLeftStart;
+            let targetIndex = currentIndex;
+
+            if (Math.abs(delta) > 30) {
+                if (delta > 0) {
+                    targetIndex = Math.min(currentIndex + 1, items.length - 1);
+                } else {
+                    targetIndex = Math.max(currentIndex - 1, 0);
+                }
+            }
+
+            const targetScroll = targetIndex * itemWidth;
+
+            list.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth',
+            });
+
+            if (list) {
+                list.style.scrollSnapType = '';
+            }
+        }
+
+        calculateItemWidth();
+
+        const resizeObserver = new ResizeObserver(() => {
+            calculateItemWidth();
+            isInitialized = list.scrollWidth > list.clientWidth + 1;
+
+            if (isInitialized && container) {
+                container.style.cursor = 'grab';
+            }
+        });
+
+        resizeObserver.observe(list);
+
+        prevBtn?.addEventListener('click', handlePrev);
+        nextBtn?.addEventListener('click', handleNext);
+        list.addEventListener('scroll', handleScroll);
+
+        if (container) {
+            container.addEventListener('mousedown', handleDragStart);
+
+            if (isInitialized) {
+                container.style.cursor = 'grab';
+            }
+        }
+
+        document.addEventListener('mousemove', handleDragMove);
+        document.addEventListener('mouseup', handleDragEnd);
+    });
+</script>
