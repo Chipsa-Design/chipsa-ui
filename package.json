@@ -1,17 +1,16 @@
 {
     "name": "chipsa-ui",
     "version": "0.0.2",
+    "packageManager": "pnpm@10.28.0",
     "description": "A UI library for modern web apps.",
     "private": true,
     "scripts": {
-        "build:core": "pnpm --filter @chipsa-ui/core build",
-        "build:react": "pnpm --filter @chipsa-ui/react build",
-        "build:astro": "pnpm --filter @chipsa-ui/astro build",
-        "build": "pnpm -r build",
-        "build:registry": "pnpm --filter www build:registry",
-        "publish:core": "pnpm --filter @chipsa-ui/core publish",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "format": "prettier --ignore-unknown --write \"**/*\""
+        "build": "turbo build",
+        "dev": "turbo dev",
+        "lint": "turbo lint",
+        "build:registry": "turbo build:registry",
+        "format": "prettier --ignore-unknown --write \"**/*\"",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [
         "components",
@@ -27,6 +26,7 @@
         "@types/node": "^24.5.2",
         "concurrently": "^9.2.1",
         "tsx": "^4.20.5",
+        "turbo": "^2.7.4",
         "vite": "^7.1.7",
         "vite-plugin-dts": "^4.5.4"
     }
